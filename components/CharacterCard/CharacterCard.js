@@ -7,6 +7,7 @@ export default function CharacterCard(character) {
         class="card__image"
         src="${character.image}"
         alt="${character.name}"
+        crossorigin=""
       />
       <div class="card__image-gradient"></div>
       </div>
