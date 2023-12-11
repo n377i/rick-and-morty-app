@@ -39,25 +39,24 @@ async function fetchCharacters() {
 }
 
 fetchCharacters();
-// scrollfunktion schön
-// function backToTop() {
-//   document.body.scrollTop = 0;
-// }
+function backToTop() {
+  document.querySelector("main").scrollTop = 0;
+}
 
 prevButton.addEventListener("click", () => {
   if (page > 1) {
     page--;
     fetchCharacters();
-    // backToTop();
   }
+  backToTop();
 });
 
 nextButton.addEventListener("click", () => {
   if (page < maxPage) {
     page++;
     fetchCharacters();
-    // backToTop();
   }
+  backToTop();
 });
 
 searchBar.addEventListener("submit", (event) => {
@@ -66,5 +65,5 @@ searchBar.addEventListener("submit", (event) => {
   page = 1;
   //console.log(searchQuery);
   fetchCharacters();
-  // backToTop();
+  backToTop();
 });
