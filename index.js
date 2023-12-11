@@ -34,15 +34,21 @@ async function fetchCharacters() {
   } catch (error) {
     console.error("Error fetching characters:", error.message);
     cardContainer.innerHTML = "<p>NO RESULTS!</p>";
+    pagination.textContent = "0 / 0";
   }
 }
 
 fetchCharacters();
+// scrollfunktion schön
+// function backToTop() {
+//   document.body.scrollTop = 0;
+// }
 
 prevButton.addEventListener("click", () => {
   if (page > 1) {
     page--;
     fetchCharacters();
+    // backToTop();
   }
 });
 
@@ -50,6 +56,7 @@ nextButton.addEventListener("click", () => {
   if (page < maxPage) {
     page++;
     fetchCharacters();
+    // backToTop();
   }
 });
 
@@ -59,4 +66,5 @@ searchBar.addEventListener("submit", (event) => {
   page = 1;
   //console.log(searchQuery);
   fetchCharacters();
+  // backToTop();
 });
