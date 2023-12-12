@@ -1,20 +1,16 @@
 import CharacterCard from "./components/CharacterCard/CharacterCard.js";
 import NavButton from "./components/NavButton/NavButton.js";
 import NavPagination from "./components/NavPagination/NavPagination.js";
+import SearchBar from "./components/SearchBar/SearchBar.js";
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
 const searchBarContainer = document.querySelector(
   '[data-js="search-bar-container"]'
 );
-const searchBar = document.querySelector('[data-js="search-bar"]');
 const navigation = document.querySelector('[data-js="navigation"]');
 
-// const prevButton = document.querySelector('[data-js="button-prev"]');
-// const nextButton = document.querySelector('[data-js="button-next"]');
-// const pagination = document.querySelector('[data-js="pagination"]');
-
 // States
-let maxPage = 42;
+let maxPage;
 let page = 1;
 let searchQuery = "";
 
@@ -57,14 +53,6 @@ const prevButton = NavButton("prev", () => {
   backToTop();
 });
 
-// prevButton.addEventListener(, () => {
-//   if (page > 1) {
-//     page--;
-//     fetchCharacters();
-//   }
-//   backToTop();
-// });
-
 const nextButton = NavButton("next", () => {
   if (page < maxPage) {
     page++;
@@ -73,21 +61,13 @@ const nextButton = NavButton("next", () => {
   backToTop();
 });
 
-// nextButton.addEventListener("click", () => {
-//   if (page < maxPage) {
-//     page++;
-//     fetchCharacters();
-//   }
-//   backToTop();
-// });
-
-navigation.append(prevButton, pagination, nextButton);
-
-searchBar.addEventListener("submit", (event) => {
+const searchBar = SearchBar((event) => {
   event.preventDefault();
   searchQuery = event.target.elements.query.value;
   page = 1;
-  //console.log(searchQuery);
   fetchCharacters();
   backToTop();
 });
+
+searchBarContainer.append(searchBar);
+navigation.append(prevButton, pagination, nextButton);
