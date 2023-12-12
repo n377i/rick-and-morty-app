@@ -1,4 +1,6 @@
 import CharacterCard from "./components/CharacterCard/CharacterCard.js";
+import NavButton from "./components/NavButton/NavButton.js";
+import NavPagination from "./components/NavPagination/NavPagination.js";
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
 const searchBarContainer = document.querySelector(
@@ -6,14 +8,17 @@ const searchBarContainer = document.querySelector(
 );
 const searchBar = document.querySelector('[data-js="search-bar"]');
 const navigation = document.querySelector('[data-js="navigation"]');
-const prevButton = document.querySelector('[data-js="button-prev"]');
-const nextButton = document.querySelector('[data-js="button-next"]');
-const pagination = document.querySelector('[data-js="pagination"]');
+
+// const prevButton = document.querySelector('[data-js="button-prev"]');
+// const nextButton = document.querySelector('[data-js="button-next"]');
+// const pagination = document.querySelector('[data-js="pagination"]');
 
 // States
 let maxPage = 42;
 let page = 1;
 let searchQuery = "";
+
+const pagination = NavPagination();
 
 async function fetchCharacters() {
   try {
@@ -39,11 +44,12 @@ async function fetchCharacters() {
 }
 
 fetchCharacters();
+
 function backToTop() {
   document.querySelector("main").scrollTop = 0;
 }
 
-prevButton.addEventListener("click", () => {
+const prevButton = NavButton("prev", () => {
   if (page > 1) {
     page--;
     fetchCharacters();
@@ -51,13 +57,31 @@ prevButton.addEventListener("click", () => {
   backToTop();
 });
 
-nextButton.addEventListener("click", () => {
+// prevButton.addEventListener(, () => {
+//   if (page > 1) {
+//     page--;
+//     fetchCharacters();
+//   }
+//   backToTop();
+// });
+
+const nextButton = NavButton("next", () => {
   if (page < maxPage) {
     page++;
     fetchCharacters();
   }
   backToTop();
 });
+
+// nextButton.addEventListener("click", () => {
+//   if (page < maxPage) {
+//     page++;
+//     fetchCharacters();
+//   }
+//   backToTop();
+// });
+
+navigation.append(prevButton, pagination, nextButton);
 
 searchBar.addEventListener("submit", (event) => {
   event.preventDefault();
